@@ -1,0 +1,26 @@
+/* Box Styles */
+.workbench-box {
+    background-color: #ffffff;
+    border: 1px solid #c9c9c9; /* Distinct border like the sketch */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.header-box {
+    background-color: #f9f9fa; /* Slightly grey background for header */
+}
+
+.solution-box {
+    min-height: 200px;
+    border: 2px solid #000000; /* Thicker border for the main workspace per sketch */
+}
+
+/* Text Area Styling to fill the box */
+.solution-textarea {
+    --slds-c-textarea-sizing-min-height: 180px;
+}
+
+.action-container {
+    padding: 0 0.5rem;
+}

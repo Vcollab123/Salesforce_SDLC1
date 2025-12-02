@@ -1,0 +1,70 @@
+<template>
+  <lightning-card title="TA Workbench" icon-name="standard:contract">
+    <div class="slds-p-around_medium">
+
+      <template if:true={loading}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+      </template>
+      <template if:true={error}>
+        <div class="slds-notify slds-notify_alert slds-theme_error slds-m-bottom_small">{error}</div>
+      </template>
+
+      <template if:true={isLocked}>
+        <div class="slds-illustration slds-illustration_small">
+          <div class="slds-text-longform">
+            <h3 class="slds-text-heading_medium">Waiting for Business Analyst</h3>
+            <p class="slds-text-body_regular">The BA must approve the requirements before you can begin.</p>
+          </div>
+        </div>
+      </template>
+
+      <template if:false={isLocked}>
+
+        <div class="workbench-box header-box">
+          <div class="slds-grid slds-grid_align-spread">
+            <h3 class="slds-text-heading_small slds-p-bottom_x-small"><strong>BA Approved Requirement</strong></h3>
+            <a href="#" onclick={toggleDescription} class="slds-text-link_reset">
+              <span class="slds-text-color_weak">{descriptionToggleLabel}</span>
+            </a>
+          </div>
+
+          <div class="slds-text-longform">
+            <p class="slds-text-body_regular"><strong>Summary:</strong> {record.Summary__c}</p>
+
+            <template if:true={showFullDescription}>
+              <div class="slds-m-top_small slds-border_top slds-p-top_small">
+                <lightning-formatted-text value={record.BA_Response__c}></lightning-formatted-text>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <div class="action-container slds-m-vertical_medium">
+          <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+            <div class="slds-col slds-grow">
+              <lightning-input label="Instruction for AI" variant="label-hidden"
+                placeholder="Enter instructions for AI..." value={taPrompt} onchange={handlePromptChange}>
+              </lightning-input>
+            </div>
+
+            <div class="slds-col slds-shrink-none">
+              <lightning-button-group>
+                <lightning-button label="Ask For AI" icon-name="utility:einstein" onclick={handleAskAI}>
+                </lightning-button>
+                <lightning-button label="Approve" variant="brand" icon-name="utility:check" onclick={handleApprove}>
+                </lightning-button>
+              </lightning-button-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="workbench-box solution-box">
+          <lightning-textarea variant="label-hidden" value={aiResponse} onchange={handleResponseChange}
+            placeholder="Generating technical solution..." class="solution-textarea">
+          </lightning-textarea>
+        </div>
+
+      </template>
+    </div>
+  </lightning-card>
+</template>

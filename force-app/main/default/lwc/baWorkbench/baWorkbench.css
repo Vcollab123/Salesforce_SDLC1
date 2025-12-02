@@ -1,0 +1,29 @@
+/* Scrollable Container for the Jira Description */
+.requirement-scroller {
+    max-height: 200px;       /* Limits height to approx 10 lines of text */
+    overflow-y: auto;        /* Adds scrollbar if content exceeds max-height */
+    background-color: #ffffff;
+    border: 1px solid #dddbda;
+    padding: 0.75rem;
+    border-radius: 4px;
+}
+
+/* Optional: Style the scrollbar to look cleaner (works in Chrome/Edge) */
+.requirement-scroller::-webkit-scrollbar {
+    width: 8px;
+}
+.requirement-scroller::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+.requirement-scroller::-webkit-scrollbar-thumb {
+    background: #c1c1c1; 
+    border-radius: 4px;
+}
+.requirement-scroller::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8; 
+}
+
+/* Ensure the text area for the response has room */
+.response-area {
+    --slds-c-textarea-sizing-min-height: 150px;
+}

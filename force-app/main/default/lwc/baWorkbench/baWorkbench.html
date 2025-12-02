@@ -1,0 +1,55 @@
+<template>
+    <lightning-card title="BA Workbench" icon-name="standard:contact">
+        <div class="slds-p-around_medium">
+            
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-notify slds-notify_alert slds-theme_error slds-m-bottom_small">{error}</div>
+            </template>
+
+            <template if:true={record}>
+                <div class="slds-float_right">
+                    <lightning-badge label={statusLabel} class={statusClass}></lightning-badge>
+                </div>
+
+                <div class="slds-m-bottom_x-small">
+                    <p class="slds-text-heading_small"><strong>{record.Jira_ID__c}:</strong> {record.Summary__c}</p>
+                </div>
+
+                <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                    <div class="slds-text-title_caps slds-m-bottom_xx-small">Description</div>
+                    <div class="requirement-scroller">
+                        <lightning-formatted-text value={record.Description__c}></lightning-formatted-text>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col">
+                        <lightning-button label="Use Description As Is" variant="neutral" 
+                            onclick={handleUseAsSame} stretch icon-name="utility:copy"></lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button label="Ask AI to Refine" variant="brand" 
+                            onclick={handleAskAI} stretch icon-name="utility:einstein"></lightning-button>
+                    </div>
+                </div>
+
+                <lightning-textarea label="BA Prompt for AI" value={baPrompt} onchange={handlePromptChange} 
+                    placeholder="e.g., Rewrite this requirement to clarify the acceptance criteria..." rows="2"></lightning-textarea>
+                
+                <div class="slds-m-top_medium">
+                    <lightning-textarea label="Final BA Response (Editable)" value={aiResponse} onchange={handleAiResponseChange} 
+                        rows="6" class="response-area" field-level-help="This is what the Technical Architect will see."></lightning-textarea>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-align_right">
+                    <lightning-button label="Approve & Unlock TA" variant="success" 
+                        onclick={handleApprove} icon-name="utility:check"></lightning-button>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
